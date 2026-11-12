@@ -4,83 +4,229 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Магический питомец: Сказки Вельда</title>
+    <!-- Подключаем красивые шрифты от Google -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- НАСТРОЙКИ СТИЛЯ (CSS) --- */
         :root {
-            --bg-color: #2c3e50;
-            --text-color: #ecf0f1;
-            --accent-color: #7f8c8d;
-            --highlight: #1abc9c;
+            --bg-dark: #0f172a;       /* Глубокий темный фон */
+            --bg-card: #1e293b;       /* Фон карточек */
+            --accent: #2dd4bf;        /* Магический бирюзовый (Teal) */
+            --accent-glow: rgba(45, 212, 191, 0.3);
+            --text-main: #f1f5f9;     /* Основной текст (почти белый) */
+            --text-muted: #94a3b8;    /* Второстепенный текст (серый) */
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Georgia', serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.7;
         }
-        h1, h2 {
-            color: var(--highlight);
-            border-bottom: 1px solid var(--accent-color);
-            padding-bottom: 10px;
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent);
+            letter-spacing: 1px;
         }
+
+        /* Главный экран (Hero) */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+            border-bottom: 1px solid rgba(45, 212, 191, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent);
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* Контейнер для контента */
         .container {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
         }
-        .img-placeholder {
+
+        /* Секции */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(45, 212, 191, 0.2);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Карточка с артом (заглушка) */
+        .art-placeholder {
             width: 100%;
-            height: 300px;
-            background-color: var(--accent-color);
+            height: 350px;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border: 1px dashed var(--accent);
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--bg-color);
+            color: var(--text-muted);
             font-style: italic;
-            margin: 20px 0;
-            border-radius: 4px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
         }
-        a { color: var(--highlight); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+        
+        .art-placeholder::before {
+            content: "✨";
+            font-size: 3rem;
+            opacity: 0.3;
+        }
+
+        /* Статус разработки (карточки) */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .status-card {
+            background-color: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .status-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        /* Футер */
         footer {
             text-align: center;
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: var(--accent-color);
+            padding: 3rem 2rem;
+            background-color: var(--bg-card);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Магический питомец: Сказки Вельда</h1>
-        <p><em>Инди-игра о выживании, симбиозе и цене искупления.</em></p>
+
+    <!-- Главный экран -->
+    <header class="hero">
+        <h1>Магический питомец</h1>
+        <p>Инди-игра о выживании, симбиозе и цене искупления в мире, где магия стала радиацией.</p>
+        <a href="#lore" class="btn">Узнать историю</a>
+    </header>
+
+    <main class="container">
         
-        <div class="img-placeholder">[Здесь будет концепт-арт мира Вельд]</div>
+        <!-- Секция Лора -->
+        <section id="lore" class="section">
+            <h2>Что такое Магическое Разложение?</h2>
+            <p>
+                Десять лет назад небо над архипелагом Вельд окрасилось в ядовито-зеленый цвет. 
+                То, что Высшие называли "Ритуалом Очищения", обернулось катастрофой. Магия перестала быть силой созидания. 
+                Она стала радиацией, мутирующей всё живое.
+            </p>
+            <br>
+            <p>
+                В этой игре вы берете на себя роль Виркса, гоблина-миколога. Ваша задача — вырастить 
+                последний симбиотический Росток, способный выжить в новом мире. Но будьте осторожны: 
+                слишком чистый росток бесполезен, а слишком мутировавший опасен. Найдите золотую середину.
+            </p>
 
-        <h2>Что такое Магическое Разложение?</h2>
-        <p>
-            Десять лет назад небо над архипелагом Вельд окрасилось в ядовито-зеленый цвет. 
-            То, что Высшие называли "Ритуалом Очищения", обернулось катастрофой. Магия перестала быть силой созидания. 
-            Она стала радиацией.
+            <!-- Сюда мы позже вставим картинку из Leonardo.AI -->
+            <div class="art-placeholder">
+                [Здесь будет концепт-арт Ростка или мира Вельд]
+            </div>
+        </section>
+
+        <!-- Секция Статуса -->
+        <section id="status" class="section">
+            <h2>Дневник разработки</h2>
+            <div class="status-grid">
+                <div class="status-card">
+                    <h3>🟢 Этап 1: Прототип</h3>
+                    <p>Базовая механика статов, цикл дня и система сохранений уже работают.</p>
+                </div>
+                <div class="status-card">
+                    <h3>🟡 Этап 2: Контент</h3>
+                    <p>Генерация арта, создание интерфейса и написание событий.</p>
+                </div>
+                <div class="status-card">
+                    <h3>⏳ Релиз</h3>
+                    <p>Планируется в 2025 году на Яндекс.Играх и itch.io.</p>
+                </div>
+            </div</section>
+
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <p>© 2024 Veld Tales Studio. Все права защищены.</p>
+        <p>Сделано с любовью к деталям, Defold и ИИ.</p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/veldtales">GitHub</a> • 
+            <a href="https://itch.io">itch.io</a>
         </p>
-        <p>
-            В этой игре вы берете на себя роль Виркса, гоблина-миколога, чья задача — вырастить 
-            последний симбиотический Росток, способный выжить в новом мире. Но будьте осторожны: 
-            слишком чистый росток бесполезен, а слишком мутировавший опасен. Найдите золотую середину.
-        </p>
+    </footer>
 
-        <h2>Статус разработки</h2>
-        <p>🟢 <strong>Этап 1:</strong> Создание прототипа и лора.</p>
-        <p>⏳ <strong>Релиз:</strong> Ожидается в 2025 году на Яндекс.Играх и itch.io.</p>
-
-        <footer>
-            <p>Связь с разработчиком: <a href="mailto:your-email@example.com">your-email@example.com</a></p>
-            <p>Сделано с помощью Defold и ИИ.</p>
-        </footer>
-    </div>
 </body>
 </html>
